@@ -28,6 +28,7 @@ Could not make Rotary Encoder to work since currently using Pin **2** and **3** 
 
 There two option:
 - [ ] Switching MCU with available pins
+  - [ ] Will need to creat a custom PCB board design to replace [no-solder-pcb](https://github.com/ric3b0wl/ProMirco-MacroPad_v2.1/tree/main/CAD/no-solder-pcb.stl)
 - [ ] Find a polling method for the rotary encoder
 
 >This project was heavily inspired by project from **tinyboatproductions** from [instructables](https://www.instructables.com/Programmable-Macropad-V2/).
