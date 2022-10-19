@@ -1,5 +1,11 @@
-# ProMicro-MacroPad
-This is a Pro-Micro ATmega32U4 Macro pad project.
+# De-MacroPad
+This is a Pro-Micro ATmega32U4 Macro-Pad project.
+
+>There is possibility of changing MCU in the future
+
+Version 2.0
+
+Version 2.1
 
 ## PlateformIO & libraries
 - chris--a/Keypad@^3.1.1
