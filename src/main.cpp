@@ -38,9 +38,12 @@ const int led[numLed] = {led0, led1, led2, led3};
 int currentLed = 0;
 
 //toggle switch
-int SW = 4;
-int buttonState;
-int lastButtonState = LOW;
+int tgUp = 4;
+int tgDw = 5;
+int tgUpState;
+int tgDwState;
+int tgUpLastState = LOW;
+int tgDwLastState = LOW;
 
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
@@ -100,7 +103,8 @@ void setup() {
     digitalWrite(led[i], LOW);
   }
 
-  pinMode(SW, INPUT_PULLUP);
+  pinMode(tgUp, INPUT_PULLUP);
+  pinMode(tgDw, INPUT_PULLUP);
   
   Keyboard.begin();
   //Consumer.begin();
@@ -184,9 +188,10 @@ void keyLayout(char button){
 
 void toggleCheck(){
   
-  int reading = digitalRead(SW);
+  int readingUp = digitalRead(tgUp);
+  int readingDw = digitalRead(tgDw);
 
-  if (reading != lastButtonState) {
+  if (readingUp != tgUpLastState || readingDw != tgDwLastState) {
     // reset the debouncing timer
     lastDebounceTime = millis();
   }
@@ -196,29 +201,47 @@ void toggleCheck(){
     // delay, so take it as the actual current state:
 
     // if the button state has changed:
-    if (reading != buttonState) {
-      buttonState = reading;
+    if (readingUp != tgUpState) {
+      tgUpState = readingUp;
 
       // only toggle the LED if the new button state is HIGH
-      if (buttonState == LOW) {
+      if (tgUpState == LOW) {
         digitalWrite(led[0], HIGH);
         digitalWrite(led[1], LOW);
         digitalWrite(led[2], LOW);
         digitalWrite(led[3], HIGH);
-
         Keyboard.press(KEY_LEFT_SHIFT);
         Keyboard.press(KEY_I);
       }
       else{
         digitalWrite(led[0], LOW);
+        digitalWrite(led[1], LOW);
+        digitalWrite(led[2], LOW);
+        digitalWrite(led[3], LOW);
+      }
+    }
+    else if (readingDw != tgDwState) {
+      tgUpState = readingUp;
+
+      // only toggle the LED if the new button state is HIGH
+      if (tgUpState == LOW) {
+        digitalWrite(led[0], LOW);
         digitalWrite(led[1], HIGH);
         digitalWrite(led[2], HIGH);
+        digitalWrite(led[3], LOW);
+        Keyboard.press(KEY_S);
+      }
+      else{
+        digitalWrite(led[0], LOW);
+        digitalWrite(led[1], LOW);
+        digitalWrite(led[2], LOW);
         digitalWrite(led[3], LOW);
       }
     }
   }
 
-  lastButtonState = reading;
+  tgUpLastState = readingUp;
+  tgDwLastState = readingDw;
   Keyboard.releaseAll();
 }
 
