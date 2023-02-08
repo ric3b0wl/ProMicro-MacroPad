@@ -46,7 +46,7 @@ int tgUpLastState = LOW;
 int tgDwLastState = LOW;
 
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+unsigned long debounceDelay = 100;    // the debounce time; increase if the output flickers
 
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -205,7 +205,7 @@ void toggleCheck(){
       tgUpState = readingUp;
 
       // only toggle the LED if the new button state is HIGH
-      if (tgUpState == LOW) {
+      if (tgDwState == LOW) {
         digitalWrite(led[0], HIGH);
         digitalWrite(led[1], LOW);
         digitalWrite(led[2], LOW);
